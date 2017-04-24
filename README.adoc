@@ -1,0 +1,26 @@
+= About
+
+"`Service layer`" abstraction demonstration with Java Servlets and MySQL database.
+
+== Running
+
+````
+./gradlew appStart
+````
+
+== Layers
+
+. Servlet
+.. `MessageServlet`
+.. `MessagesServlet`
+. Service
+.. `MessageService`
+... `MemoryMessageService`
+... `DatabaseMessageService`
+. Storage
+.. Memory
+.. Database
+
+HTTP requests are routed to a `MessageService` implementation.
+Either `MemoryMessageService` or `DatabaseMessageService` -- see `MessageServices` (note the _s_ at the end).
+Both `MessageService` implementations are tested the same way -- see `MessageServiceTest`.
