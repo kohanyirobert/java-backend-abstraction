@@ -2,12 +2,6 @@
 
 "`Service layer`" abstraction demonstration with Java Servlets and MySQL database.
 
-== Running
-
-````
-./gradlew appStart
-````
-
 == Layers
 
 . Servlet
@@ -24,3 +18,33 @@
 HTTP requests are routed to a `MessageService` implementation.
 Either `MemoryMessageService` or `DatabaseMessageService` -- see `MessageServices` (note the _s_ at the end).
 Both `MessageService` implementations are tested the same way -- see `MessageServiceTest`.
+
+IMPORTANT: The main thing to note is that it's very easy to change which implementation is actually in use. See the _Servlet_ classes' `MessageService` field.
+
+== Running
+
+.Starting from the command-line
+```
+./gradlew appStart
+```
+
+After this a web-application will be available it at `http://localhost:8080`.
+This exposes a `/messages` endpoint.
+
+Responds to
+
+* `GET /messages`
+* `POST /messages`
+* `GET /messages/<id>`
+* `PUT /messages/<id>`
+* `DELETE /messages/<id>`
+
+.Sending requests with cURL
+```
+curl -X GET http://localhost:8080/messages
+curl -X POST -d "title=Hi!&text=Hello World!" http://localhost:8080/messages
+curl -X GET http://localhost:8080/messages/1
+curl -X PUT -d "title=Hi again!&text=Hello World!" http://localhost:8080/messages/1
+curl -X DELETE http://localhost:8080/messages/1
+...
+```
