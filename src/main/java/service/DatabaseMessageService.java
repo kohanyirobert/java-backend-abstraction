@@ -1,6 +1,7 @@
 package service;
 
 import model.Message;
+import util.IO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -101,20 +102,7 @@ public final class DatabaseMessageService implements MessageService {
 
     private void executeScript(String path) {
         try {
-            InputStream is = System.class.getResourceAsStream(path);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            byte[] bytes = new byte[32];
-            while (true) {
-                int read = is.read(bytes);
-                if (read == -1) {
-                    break;
-                }
-                baos.write(bytes, 0, read);
-                if (read < bytes.length) {
-                    break;
-                }
-            }
-            String sql = baos.toString();
+            String sql = IO.toString(System.class.getResourceAsStream(path));
             Statement statement = connection.createStatement();
             statement.execute(sql);
         } catch (SQLException | IOException e) {
